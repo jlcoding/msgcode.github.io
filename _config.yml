@@ -3,7 +3,7 @@ title: JL's Blog
 author: JL
 description: 记录下
 
-url: "https://wnglmng.com"
+url: "https://msgcode.github.io"
 
 permalink: /:year/:month/:title/
 
@@ -21,6 +21,6 @@ paginate_path: "pages/:num/"
 # Social
 social:
     weibo: sunmoon1993
-    github: wnglmng
+    github: msgcode
     gplus: 112547382138552250597
-    mail: wnglmng@gmail.com
+    mail: 41369927@qq.com
