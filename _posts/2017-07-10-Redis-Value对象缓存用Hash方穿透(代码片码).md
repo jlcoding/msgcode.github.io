@@ -2,11 +2,11 @@
 layout: post
 title: Redis Value对象缓存用Hash方穿透(代码片码)
 subtitle: 简单实用减轻数据库压力
-date: 2017-07-06 13:32:20 +0300
+date: 2017-07-10 13:32:20 +0300
 description: 简单实用减轻数据库压力
-tags: MySQL
+tags: Redis
 post-card-type: image
-card-image: assets/images/mysql.jpeg
+card-image: assets/images/redis.jpg
 ---
 
 ##前言
