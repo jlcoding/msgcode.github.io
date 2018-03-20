@@ -20,7 +20,6 @@ paginate_path: "pages/:num/"
 
 # Social
 social:
-    weibo: sunmoon1993
+    weibo: http://weibo.com/liubbb
     github: msgcode
-    gplus: 112547382138552250597
     mail: 41369927@qq.com
