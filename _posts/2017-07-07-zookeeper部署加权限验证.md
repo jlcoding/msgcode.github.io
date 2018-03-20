@@ -1,80 +1,39 @@
 ---
 layout: post
-title: MySQL恢复误删数据
-subtitle: 及时救你一命
-date: 2017-07-06 13:32:20 +0300
-description: 不小心误删MySQL数据怎么办?
-tags: MySQL
+title: Zookeeper部署
+subtitle: 简单又实用
+date: 2017-07-07 13:32:20 +0300
+description: 之前尝试搭建Zk+Dubbo时的记录,现在迁移过来
+tags: Zookeeper
 post-card-type: image
-card-image: https://ww1.sinaimg.cn/mw690/906cb9dbgw1fayoxw9jh0j20b407e3zn.jpg
+card-image: assets/images/zookeeper.jpg
 ---
 
 ##前言
 
-今天不小心在update时写错where条件,导致表里多条记录被更新. 吓得弟弟我心砰砰跳.这时候赶紧找找怎么恢复MySQL,发现其实很容易也很靠谱..
-
-
-
-## 条件
-
-这个方法有个终极条件就是你的MySQL是否开启binlog,至于开启binlog有几个方法
-
-##### 1.在my.inf主配置文件中直接添加三行
-
-```
-1. log_bin=ON  
-2. log_bin_basename=/var/lib/mysql/mysql-bin  
-3. log_bin_index=/var/lib/mysql/mysql-bin.index 
-```
-
- 第一行参数是打开binlog日志
-
-第二行参数是binlog日志的基本文件名，后面会追加标识来表示每一个文件
-
-第三行参数指定的是binlog文件的索引文件，这个文件管理了所有的binlog文件的目录
-
-
-
-##### 2.这个方法比上面简单点.不过定制化差点
-
-```
-log-bin=/var/lib/mysql/mysql-bin  
-```
-
-这一行参数的作用和上面三个的作用是相同的，mysql会根据这个配置自动设置log_bin为on状态，自动设置log_bin_index文件为你指定的文件名后跟.index
-
-
-
-##### 注意: 如果是5.7以上版本还需要指定一个参数
-
-```
-server-id=12345 #自己定一个
-```
-
-随机指定一个不能和其他集群中机器重名的字符串，如果只有一台机器，那就可以随便指定了
-
-
-
-以上方式都需要重启MySQL服务.至于怎样重启MySQL服务就靠自己来了
+神马下载那些东西就不说啦..自己来啦 本教程是基于ZooKeeper 3.4.10进行的, 部分内容可能会有版本差异, 敬请家长留意. 这里只讲zookeeper(下面简称为:zk) ACL的digest scheme 和 ip scheme权限验证方式. 因为比较常用.
 
 
 
 ##实际操作
 
-##### 讲解: binlog实际上就是将MySQL执行的每一条语句记录下来,所以大致原理大家应该就清楚了,就是将历时语句查出来知道在你修改前这个字段的值本来是多少, 虽然不直观, 但是总算是有迹可循.
+第一步: 解压, 这个不详细说了.
 
-在my.cnf找到binlog保存的位置 或者通过MySQL命令找到
+第二步: zk有一个默认配置, 我们copy 一份出来修改自己的配置
 
 ```
-show variables like '%log_bin%'  
+cp conf/zoo_sample.cfg zoo.cfg
 ```
 
-找到后就好办了.
-
-my.cnf
 
 
+第三步: zk里面的记录实际就像一个XML, 或者说像一个文件系统, 会有一个根目录 / 然后在根目录中创建节点, 来保存不同的数据.
+
+```
+create /zhishiquan "zhishiquan" #创建节点和别名
+```
 
 
-binlog会按max_binlog_size expire_logs_days 两个参数来分割成多个文件, 所以要找到你
+
+第四步
 
